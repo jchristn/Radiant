@@ -6,6 +6,8 @@
     <AssemblyName>Radiant</AssemblyName>
     <ApplicationIcon>..\..\assets\logo.ico</ApplicationIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>Radiant</PackageId>
     <Description>Radiant telemetry SDK core: turns RadiantSettings into a wired, exportable metrics/traces/logs pipeline (OTLP, in-process Prometheus, Loki) owned by one RadiantHost. Emit rides the .NET BCL; the app hosts.</Description>
     <PackageTags>telemetry;opentelemetry;metrics;traces;logs;otlp;prometheus;loki;observability</PackageTags>

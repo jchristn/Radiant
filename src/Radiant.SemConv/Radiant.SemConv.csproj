@@ -5,6 +5,8 @@
     <RootNamespace>Radiant</RootNamespace>
     <AssemblyName>Radiant.SemConv</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>Radiant.SemConv</PackageId>
     <Description>Radiant emit-side naming vocabulary: the Convention descriptor type and ready-made OpenTelemetry semantic-convention instrument definitions, units, and attribute keys, shared by libraries and hosts without dragging in the OpenTelemetry SDK.</Description>
     <PackageTags>telemetry;opentelemetry;semantic-conventions;metrics;naming</PackageTags>
