@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <RootNamespace>Radiant.Sdk.Console</RootNamespace>
+    <AssemblyName>Radiant.Sdk.Console</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Radiant\Radiant.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Inputty" Version="1.0.13" />
+  </ItemGroup>
+
+</Project>

@@ -2,17 +2,32 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net10.0</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <RootNamespace>Radiant</RootNamespace>
+    <AssemblyName>Radiant</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Radiant</PackageId>
+    <Description>Radiant telemetry SDK core: turns RadiantSettings into a wired, exportable metrics/traces/logs pipeline (OTLP, in-process Prometheus, Loki) owned by one RadiantHost. Emit rides the .NET BCL; the app hosts.</Description>
+    <PackageTags>telemetry;opentelemetry;metrics;traces;logs;otlp;prometheus;loki;observability</PackageTags>
+    <!--
+      NU5104: the in-process Prometheus scrape endpoint is served by
+      OpenTelemetry.Exporter.Prometheus.HttpListener, which the OpenTelemetry project ships only as
+      a prerelease (-beta) package. There is no stable release to depend on, so a stable Radiant
+      necessarily carries a prerelease dependency. Suppressed deliberately.
+    -->
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Version>0.0.1</Version>
-    <Copyright>(c)2026 Joel Christner</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/jchristn/Radiant</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/jchristn/Radiant</PackageProjectUrl>
-  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="OpenTelemetry" Version="1.17.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.HttpListener" Version="1.17.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Radiant.SemConv\Radiant.SemConv.csproj" />
+  </ItemGroup>
 
 </Project>

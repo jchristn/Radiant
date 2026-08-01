@@ -1,3 +1,16 @@
 <Solution>
-  <Project Path="Radiant/Radiant.csproj" />
+  <Folder Name="/Packages/">
+    <Project Path="Radiant/Radiant.csproj" />
+    <Project Path="Radiant.SemConv/Radiant.SemConv.csproj" />
+  </Folder>
+  <Folder Name="/Tools/">
+    <Project Path="Radiant.Sdk.Console/Radiant.Sdk.Console.csproj" />
+    <Project Path="SampleApplication/SampleApplication.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Test.Shared/Test.Shared.csproj" />
+    <Project Path="Test.Automated/Test.Automated.csproj" />
+    <Project Path="Test.Xunit/Test.Xunit.csproj" />
+    <Project Path="Test.Nunit/Test.Nunit.csproj" />
+  </Folder>
 </Solution>

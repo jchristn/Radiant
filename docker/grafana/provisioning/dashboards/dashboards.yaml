@@ -1,0 +1,13 @@
+# Grafana dashboard provisioning for the Radiant reference stack.
+
+apiVersion: 1
+
+providers:
+  - name: Radiant
+    orgId: 1
+    folder: Radiant
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards
