@@ -10,7 +10,6 @@
     <Company>Joel Christner</Company>
     <Copyright>(c)2026 Joel Christner</Copyright>
     <Product>Radiant</Product>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/jchristn/Radiant</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jchristn/Radiant</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>

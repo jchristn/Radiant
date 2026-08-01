@@ -9,6 +9,8 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>Radiant</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>Radiant telemetry SDK core: turns RadiantSettings into a wired, exportable metrics/traces/logs pipeline (OTLP, in-process Prometheus, Loki) owned by one RadiantHost. Emit rides the .NET BCL; the app hosts.</Description>
     <PackageTags>telemetry;opentelemetry;metrics;traces;logs;otlp;prometheus;loki;observability</PackageTags>
     <!--
@@ -31,6 +33,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Radiant.SemConv\Radiant.SemConv.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
 </Project>

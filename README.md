@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Radiant" width="170" height="192" />
+  <img src="https://raw.githubusercontent.com/jchristn/Radiant/main/assets/logo.png" alt="Radiant" width="170" height="192" />
 </p>
 
 # Radiant
