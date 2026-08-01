@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/jchristn/Radiant</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jchristn/Radiant</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <!-- CS1591: missing XML comment. We document all public members; suppress only for generated/obj noise. -->
   </PropertyGroup>
 

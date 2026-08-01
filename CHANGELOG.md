@@ -4,6 +4,16 @@ All notable changes to Radiant are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-08-01
+
+### Added
+
+- Project branding: `assets/logo.png` in the README and `assets/logo.ico` as the assembly icon.
+- README "Why use it" section rewritten to articulate the concrete advantages (collapsed wiring,
+  in-process `/metrics` with no infrastructure, lifecycle correctness, dependency-free libraries,
+  dashboard-ready naming with a cardinality guardrail, vendor-neutral, unit-testable), with the
+  honest boundary that it lowers wiring cost, not conceptual cost.
+
 ## [0.1.0] - 2026-08-01
 
 First alpha. The host and export pipeline, emit conveniences, declared catalog, logs/Loki export,

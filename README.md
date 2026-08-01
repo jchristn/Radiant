@@ -1,10 +1,14 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Radiant" width="170" height="192" />
+</p>
+
 # Radiant
 
 **Telemetry for .NET without the wiring.** Fill in one settings object, start one host, and your
 application's metrics, traces, and logs flow to Prometheus, Tempo, and Loki — or to any
 OpenTelemetry-compatible backend.
 
-> **Status: alpha — v0.1.0.** Radiant is early and under active development. The public API,
+> **Status: alpha — v0.1.1.** Radiant is early and under active development. The public API,
 > defaults, and package layout may change between 0.x releases without notice. Pin a version if you
 > depend on it, and read the [CHANGELOG](CHANGELOG.md) before upgrading.
 
