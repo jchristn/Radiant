@@ -39,25 +39,48 @@ hosts, once. The two sides never reference each other; they meet at a string nam
 
 ## Why use it
 
-**You get a working pipeline in a few lines instead of a few hundred.** Standing up OpenTelemetry by
-hand means learning three provider builders, an exporter matrix, resource attributes, samplers, and a
-Prometheus listener. Radiant makes the common path a settings object with sane defaults, while
-leaving the raw OpenTelemetry SDK fully accessible underneath when you need it.
+The value is concentrated on the *hosting* side — turning your instruments into an exported pipeline.
+Radiant deliberately doesn't reinvent how you emit; it removes the part that's genuinely tedious and
+easy to get wrong.
+
+**A working pipeline in a few lines instead of a few hundred.** Standing up OpenTelemetry by hand
+means learning which of half a dozen packages you need, three separate provider builders, the OTLP
+exporter option matrix, resource attributes, samplers, the metric reader interval, the Prometheus
+listener, and Loki's exact OTLP path and tenant header — then getting flush-and-dispose ordering
+right. Radiant compresses all of it to a settings object with defaults that already work, while
+leaving the raw OpenTelemetry SDK accessible underneath when you need it. Time to first metric is
+minutes, not an afternoon.
+
+**Metrics on day one, with no infrastructure.** Set `Prometheus.Enable = true` and the app serves
+`/metrics` in-process — you can `curl` it or point Prometheus straight at it before any collector
+exists. The collector becomes an upgrade, not a prerequisite.
+
+**The lifecycle correctness you'd otherwise get wrong by hand.** One host per scrape port is guarded
+with a clear error instead of a buried socket exception; an invalid OTLP protocol fails fast rather
+than silently falling back; disposal flushes exporters and releases the port deterministically. These
+are exactly the mistakes hand-rolled telemetry makes.
 
 **Your libraries stay clean.** Because emit is just the base class library, a foundational component
-can be fully instrumented and still impose nothing on the applications that use it. No Radiant
-dependency, no configuration, no cost when telemetry is off. The library and the host meet at a name,
-not a reference.
+can be fully instrumented and still impose nothing on the applications that use it — no Radiant
+dependency, no configuration, and no cost when telemetry is off. The library and the host meet at a
+name, not a reference.
 
-**It's vendor-neutral by construction.** The same instruments Radiant reads are readable by
-`dotnet-counters`, `dotnet-monitor`, Application Insights, and any OpenTelemetry-compatible vendor —
-Grafana Cloud, Datadog, New Relic, Azure Monitor, CloudWatch — often several at once. Follow the
-semantic conventions and stock dashboards light up everywhere.
+**Dashboards that light up, and a backend that won't fall over.** Names follow the OpenTelemetry
+semantic conventions, so stock Grafana and vendor dashboards render without custom setup. And the one
+way a naive telemetry layer fails — an unbounded `Record(anyString, value)` surface that multiplies
+into millions of time series — is closed by construction: Radiant rides typed BCL instruments and
+offers an opt-in catalog that *enforces* bounded label cardinality, strict in Debug so mistakes
+surface on your machine.
 
-**It won't melt your metrics backend.** The one way a naive telemetry layer fails is an unbounded
-`Record(anyString, value)` surface, where metric names and label values multiply into millions of
-time series. Radiant rides the base class library's typed instruments and offers an opt-in declared
-catalog that *enforces* bounded cardinality rather than merely encouraging it.
+**Vendor-neutral, and testable.** The same instruments Radiant reads are readable by
+`dotnet-counters`, `dotnet-monitor`, Application Insights, and any OpenTelemetry vendor — Grafana
+Cloud, Datadog, New Relic, Azure Monitor, CloudWatch — often several at once. And because emit rides
+the BCL, you can assert on metric values and labels in a unit test with an in-memory reader, no
+running host required.
+
+One honest boundary: Radiant lowers the *wiring* cost, not the *conceptual* cost. You still decide
+what to measure, and you still need to understand metrics versus traces versus logs and why
+cardinality matters — it doesn't pretend those away.
 
 ## Packages
 

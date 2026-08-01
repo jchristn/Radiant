@@ -44,3 +44,6 @@ coverage*.xml
 # OS files
 .DS_Store
 Thumbs.db
+
+# Local design/planning archive (not published)
+archive/
