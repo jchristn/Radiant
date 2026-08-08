@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net10.0</TargetFrameworks>
     <RootNamespace>Radiant</RootNamespace>
     <AssemblyName>Radiant.SemConv</AssemblyName>
+    <ApplicationIcon>..\..\assets\logo.ico</ApplicationIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
