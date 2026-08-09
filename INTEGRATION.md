@@ -130,10 +130,9 @@ Standard dashboards and vendors key off the OpenTelemetry semantic conventions, 
 `http.server.request.duration` renders in a stock Grafana panel with no configuration, while a
 hand-invented name still flows but leaves you to build the panel yourself.
 
-If you want the well-known names instead of typing strings, add the `Radiant.SemConv` package. It
-has no dependency on the OpenTelemetry SDK, so even a `netstandard2.0` library can reference it just
-to share names. Each built-in is a `Convention` — a name bundled with its kind, unit, and allowed
-label keys — and it converts implicitly to its name, so it drops straight into a BCL call:
+If you want the well-known names instead of typing strings, they ship in the `Radiant` package as the
+`SemConv` vocabulary. Each built-in is a `Convention` — a name bundled with its kind, unit, and
+allowed label keys — and it converts implicitly to its name, so it drops straight into a BCL call:
 
 ```csharp
 using Radiant;

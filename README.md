@@ -8,7 +8,7 @@
 application's metrics, traces, and logs flow to Prometheus, Tempo, and Loki — or to any
 OpenTelemetry-compatible backend.
 
-> **Status: alpha — v0.1.1.** Radiant is early and under active development. The public API,
+> **Status: alpha — v0.1.2.** Radiant is early and under active development. The public API,
 > defaults, and package layout may change between 0.x releases without notice. Pin a version if you
 > depend on it, and read the [CHANGELOG](CHANGELOG.md) before upgrading.
 
@@ -90,16 +90,15 @@ cardinality matters — it doesn't pretend those away.
 
 | Package | What it is | Depends on |
 |---|---|---|
-| [`Radiant`](https://www.nuget.org/packages/Radiant) | The core: settings, host, convenience emitter, provider wiring | OpenTelemetry SDK + exporters, `Microsoft.Extensions.Logging` |
-| [`Radiant.SemConv`](https://www.nuget.org/packages/Radiant.SemConv) | Emit-side naming vocabulary: the `Convention` type + OTel semantic-convention definitions | `System.Diagnostics.DiagnosticSource` only |
+| [`Radiant`](https://www.nuget.org/packages/Radiant) | The whole SDK: settings, host, convenience emitter, provider wiring, and the `Convention` / `SemConv` naming vocabulary | OpenTelemetry SDK + exporters, `Microsoft.Extensions.Logging` |
 
-The core carries no stack-specific dependencies. A library becomes observable by creating a
-`Meter`/`ActivitySource` with a stable name and emitting; Radiant subscribes to that name from the
-host side. A component that only needs to name its instruments consistently pulls in `Radiant.SemConv`
-and nothing else — not even the OpenTelemetry SDK. An application that wants the full pipeline pulls
-in `Radiant`.
+A library becomes observable without referencing Radiant at all: it creates a `Meter`/`ActivitySource`
+with a stable name and emits through `System.Diagnostics`, and the host subscribes to that name from
+the outside. There is no coupling between the telemetry producer and consumer. An application that
+wants the full pipeline — plus the ready-made `SemConv` names and the `Convention` extension point —
+pulls in `Radiant`.
 
-Both packages multi-target `netstandard2.0;netstandard2.1;net8.0;net10.0`. The emit path is
+Radiant multi-targets `netstandard2.0;netstandard2.1;net8.0;net10.0`. The emit path is
 `netstandard2.0`-clean, so a down-level library can create a `Meter`, emit, and stay a no-op until a
 modern host subscribes.
 
@@ -253,7 +252,7 @@ Open Grafana at `http://localhost:3000` and watch the Radiant Overview dashboard
 ## Names and conventions
 
 The price of that cross-vendor usefulness is semantic-convention compliance: correct instrument kind,
-UCUM unit, and OTel-standard names and attributes. `Radiant.SemConv` ships those as reusable
+UCUM unit, and OTel-standard names and attributes. Radiant ships those as reusable `SemConv`
 `Convention` definitions so the emitting library and the reading host agree by referencing the same
 value rather than re-typing strings:
 
@@ -275,8 +274,8 @@ settings.Metrics.DefineAll(Sorted, /* ... */);                       // register
 ```
 
 A `Convention` converts implicitly to its name, so it also drops straight into a raw
-`System.Diagnostics` call — a `netstandard2.0` library can reference `Radiant.SemConv` for the shared
-vocabulary without touching the OpenTelemetry SDK.
+`System.Diagnostics` call — the same shared vocabulary works whether you emit through Radiant's
+convenience API or a bare `Meter`.
 
 ## Configuration reference
 

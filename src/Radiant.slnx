@@ -1,7 +1,6 @@
 <Solution>
   <Folder Name="/Packages/">
     <Project Path="Radiant/Radiant.csproj" />
-    <Project Path="Radiant.SemConv/Radiant.SemConv.csproj" />
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="Radiant.Sdk.Console/Radiant.Sdk.Console.csproj" />

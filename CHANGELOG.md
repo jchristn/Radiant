@@ -4,6 +4,24 @@ All notable changes to Radiant are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-08-08
+
+### Changed
+
+- **`Radiant.SemConv` folded into `Radiant`.** The emit-side naming vocabulary — the `Convention`
+  descriptor type, the `MetricKindEnum`, and the built-in `SemConv` semantic-convention definitions —
+  now ships inside the `Radiant` package instead of as a separate NuGet package. The types are
+  unchanged and remain in the `Radiant` namespace, so existing `using Radiant;` code and every call
+  (`SemConv.Http.RequestDuration`, `Convention.Counter(...)`, `settings.Metrics.Define(...)`) compiles
+  as before; only the extra package reference goes away. `System.Diagnostics.DiagnosticSource` is now a
+  direct dependency of `Radiant`.
+
+### Removed
+
+- The standalone `Radiant.SemConv` NuGet package. Consumers reference `Radiant` for the same types.
+  Note the trade-off: a `netstandard2.0` library can no longer take the naming vocabulary alone
+  without also pulling in the OpenTelemetry SDK that `Radiant` carries.
+
 ## [0.1.1] - 2026-08-01
 
 ### Added
