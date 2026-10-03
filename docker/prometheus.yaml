@@ -13,7 +13,11 @@ scrape_configs:
     static_configs:
       - targets: ["otel-collector:8889"]
 
-  # Direct in-process scrape of a Radiant host (no collector in the path):
+  # Direct in-process scrape of a Radiant host (no collector in the path). The endpoint binds
+  # PrometheusScrapeSettings.Hostname (default localhost, which is unreachable from this container)
+  # and answers only requests addressed to that name. Wildcards (*, +, 0.0.0.0) are not supported.
+  # Run the app on this compose network, set its Hostname to its compose service name, and use that
+  # name here:
   # - job_name: radiant-app
   #   static_configs:
-  #     - targets: ["host.docker.internal:9464"]
+  #     - targets: ["my-service:9464"]

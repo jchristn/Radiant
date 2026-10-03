@@ -4,6 +4,19 @@ All notable changes to Radiant are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- **Documentation: `Prometheus.Hostname` does not accept wildcards.** The XML docs said `+` or `*`
+  binds every interface. In fact `*` and `+` make `RadiantHost.Start` throw (`UriFormatException`),
+  and so do `0.0.0.0` and `[::]` (`HttpListenerException`). This was verified on macOS and Linux.
+  The docs now say this, and explain that a hostname binds the address it resolves to, answers only
+  requests addressed to that name, and that Compose deployments should bind and scrape by service
+  name. The README settings table gains a `Prometheus.Hostname` row, and the commented direct-scrape
+  job in `docker/prometheus.yaml` no longer suggests `host.docker.internal`, which the default
+  hostname cannot serve.
+
 ## [0.1.2] - 2026-08-08
 
 ### Changed

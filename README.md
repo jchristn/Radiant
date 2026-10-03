@@ -210,7 +210,17 @@ point Prometheus straight at it — no collector required:
 
 ```csharp
 settings.Prometheus.Enable = true;
-settings.Prometheus.Port = 9464;             // scrape at http://host:9464/metrics
+settings.Prometheus.Port = 9464;             // scrape at http://localhost:9464/metrics
+```
+
+The endpoint binds `Prometheus.Hostname` (default `localhost`), so by default only this machine can
+scrape it. Wildcards are not supported: `*`, `+`, `0.0.0.0`, and `[::]` all make `RadiantHost.Start`
+throw. To be scraped from elsewhere, set a hostname that resolves to a reachable interface, and use
+that same name in the scrape target. The endpoint answers only requests addressed to the configured
+name; any other host, including its IP address, gets a 404. In Docker Compose that is the service name:
+
+```csharp
+settings.Prometheus.Hostname = "my-service"; // Prometheus target: my-service:9464
 ```
 
 OTLP push and the Prometheus endpoint can both run; the endpoint is a pull path, the OTLP exporter a
@@ -294,6 +304,7 @@ ranges rather than throwing.
 | `Otlp.Endpoint` | `http://localhost:4317` | Absolute URI. |
 | `Otlp.Protocol` | `Grpc` | Or `HttpProtobuf`. Invalid values fail fast. |
 | `Prometheus.Enable` | false | In-process scrape endpoint. |
+| `Prometheus.Hostname` | `localhost` | Bind name. No wildcards (`*`, `+`, `0.0.0.0`, `[::]` fail at start); scrape using the same name. |
 | `Prometheus.Port` | 9464 | Clamps 1..65535. One host per port per process. |
 | `Loki.Enable` | false | Direct OTLP-HTTP to Loki 3.x. |
 
