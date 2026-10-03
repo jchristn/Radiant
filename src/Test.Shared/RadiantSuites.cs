@@ -606,6 +606,27 @@ namespace Test.Shared
                         return Task.CompletedTask;
                     }),
 
+                    Case("Export", "PrometheusScrapeServesMetrics", "Prometheus scrape endpoint serves metrics", async _ =>
+                    {
+                        RadiantSettings settings = new RadiantSettings("prometheus-svc");
+                        settings.Otlp.Enable = false;
+                        settings.Traces.Enable = false;
+                        settings.Logs.Enable = false;
+                        settings.Metrics.IncludeRuntime = false;
+                        settings.Prometheus.Enable = true;
+                        settings.Prometheus.Port = FreeTcpPort();
+
+                        using (RadiantHost host = RadiantHost.Start(settings))
+                        using (System.Net.Http.HttpClient http = new System.Net.Http.HttpClient())
+                        {
+                            host.Client.Increment("radiant.prometheus.counter", 4);
+                            http.Timeout = TimeSpan.FromSeconds(10);
+                            string body = await http.GetStringAsync(settings.Prometheus.ToScrapeUrl()).ConfigureAwait(false);
+                            if (!body.Contains("radiant_prometheus_counter"))
+                                throw new Exception("Scrape output did not contain the counter: " + body);
+                        }
+                    }),
+
                     Case("Export", "LokiReceivesLogs", "Direct Loki export reaches the endpoint", _ =>
                     {
                         using (RecordingHttpEndpoint endpoint = new RecordingHttpEndpoint())
@@ -658,6 +679,15 @@ namespace Test.Shared
             settings.Metrics.Enable = true;
             settings.Metrics.IncludeRuntime = false;
             return settings;
+        }
+
+        private static int FreeTcpPort()
+        {
+            System.Net.Sockets.TcpListener listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0);
+            listener.Start();
+            int port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
         }
 
         private static void AssertEqual(object expected, object actual, string what)

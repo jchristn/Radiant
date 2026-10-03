@@ -8,7 +8,7 @@
 application's metrics, traces, and logs flow to Prometheus, Tempo, and Loki — or to any
 OpenTelemetry-compatible backend.
 
-> **Status: alpha — v0.1.2.** Radiant is early and under active development. The public API,
+> **Status: alpha — v0.1.3.** Radiant is early and under active development. The public API,
 > defaults, and package layout may change between 0.x releases without notice. Pin a version if you
 > depend on it, and read the [CHANGELOG](CHANGELOG.md) before upgrading.
 

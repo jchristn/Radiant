@@ -6,6 +6,24 @@ All notable changes to Radiant are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-03
+
+### Changed
+
+- **Dependency updates.** `OpenTelemetry`, `OpenTelemetry.Exporter.OpenTelemetryProtocol` 1.17.0 →
+  1.19.1; `OpenTelemetry.Exporter.Prometheus.HttpListener` 1.17.0-beta.1 → 1.19.1-beta.1;
+  `OpenTelemetry.Instrumentation.Runtime` 1.17.0 → 1.19.0; `Microsoft.Extensions.Logging` and
+  `Microsoft.Extensions.Logging.Abstractions` 10.0.0 → 10.0.12. No public API changes.
+- **Test dependency updates.** `OpenTelemetry.Exporter.InMemory` 1.19.1; `Touchstone.*` 0.2.0;
+  `Microsoft.NET.Test.Sdk` 18.10.1; `coverlet.collector` 10.1.0; `xunit.runner.visualstudio` 4.0.0;
+  `NUnit` 5.0.0; `NUnit.Analyzers` 4.15.0; `NUnit3TestAdapter` 6.3.0.
+
+### Added
+
+- Test `Export/PrometheusScrapeServesMetrics`: starts the in-process Prometheus scrape endpoint on a
+  free port, emits a counter, and asserts the scrape output contains it, covering the updated
+  prerelease Prometheus exporter end to end.
+
 ### Fixed
 
 - **Documentation: `Prometheus.Hostname` does not accept wildcards.** The XML docs said `+` or `*`
