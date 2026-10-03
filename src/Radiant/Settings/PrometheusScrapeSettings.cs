@@ -29,11 +29,11 @@ namespace Radiant
         /// <see cref="RadiantException"/> wrapping an <c>HttpListenerException</c>.
         /// </para>
         /// <para>
-        /// A name binds the address it resolves to on this machine, and the endpoint answers only
-        /// requests that use that name (any other Host gets a 404). To be scraped from another machine or container, set a
-        /// name that resolves to a reachable interface (in Docker Compose, the service name), and
-        /// point Prometheus at that same name, for example <c>my-service:9464</c>. Use
-        /// <c>127.0.0.1</c> for loopback-only scraping by address.
+        /// A name binds the address it resolves to on this machine, and the endpoint answers only requests
+        /// that use that name (any other Host gets a 404). To be scraped from another machine or container,
+        /// set a name that resolves to a reachable interface (in Docker Compose, the service name), and
+        /// point Prometheus at that same name, for example <c>my-service:9464</c>. Use <c>127.0.0.1</c> for
+        /// loopback-only scraping by address.
         /// </para>
         /// </summary>
         public string Hostname
